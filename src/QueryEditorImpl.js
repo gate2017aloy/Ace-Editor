@@ -1,15 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
-import {MyAceEditor} from "./myAceEditor";
-import {MyMonacoEditor} from "./myMonacoEditor";
 import {useRef, useState} from "react";
 import QueryEditor from "./redashEditor";
 import {schema} from "./myAceEditor/schema";
-import {useDebouncedCallback} from "use-debounce";
-import QueryEditorImpl from "./QueryEditorImpl";
 
-
-function App() {
+function QueryEditorImpl() {
     const editorRef = useRef(null);
     const {query, setQuery} = useState("")
 
@@ -24,10 +17,23 @@ function App() {
     const [selectedText, setSelectedText] = useState(null);
 
     return (
-        <div>
-            <QueryEditorImpl/>
+        <div className="App">
+
+
+            <QueryEditor
+                ref={editorRef}
+                data-executing={true}
+                syntax={null}
+                value={query}
+                schema={schema.schema}
+                autocompleteEnabled={true}
+                onChange={handleQueryEditorChange}
+                onSelectionChange={setSelectedText}
+            />
+
+
         </div>
     );
 }
 
-export default App;
+export default QueryEditorImpl;
